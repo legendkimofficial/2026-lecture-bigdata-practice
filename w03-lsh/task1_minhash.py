@@ -17,6 +17,7 @@ and the harness checks you against it.
     python3 task1_minhash.py --verify
 """
 import argparse
+from itertools import combinations
 
 # §3.3.5. Rows are elements 0..4, columns are the sets S1..S4.
 BOOK = [[1, 0, 0, 1],
@@ -30,7 +31,8 @@ BOOK_HASHES = [lambda r: (r + 1) % 5, lambda r: (3 * r + 1) % 5]
 
 def jaccard(a, b):
     """|a and b| / |a or b|. Empty union is 0, not an error."""
-    raise NotImplementedError("jaccard similarity")
+    union = a | b
+    return len(a & b) / len(union) if union else 0.0
 
 
 def minhash_signatures(columns, hashes, n_rows):
@@ -48,7 +50,29 @@ def minhash_signatures(columns, hashes, n_rows):
     written something correct that does not survive a dataset that does not fit
     in memory, and not fitting in memory is what this course is about.
     """
-    raise NotImplementedError("signature matrix")
+    if n_rows < 0:
+        raise ValueError("n_rows must be nonnegative")
+    # Invert the sparse input once: a row lists only its nonzero columns.
+    # No matrix scan per column and no sorting of the rows is needed.
+    row_columns = {}
+    for c, column in enumerate(columns):
+        for row in column:
+            if not isinstance(row, int) or not 0 <= row < n_rows:
+                raise ValueError("row numbers must be integers in [0, n_rows)")
+            row_columns.setdefault(row, []).append(c)
+
+    signatures = [[float("inf")] * len(hashes) for _ in columns]
+    for row in range(n_rows):
+        members = row_columns.get(row)
+        if not members:
+            continue
+        values = [h(row) for h in hashes]
+        for c in members:
+            signature = signatures[c]
+            for k, value in enumerate(values):
+                if value < signature[k]:
+                    signature[k] = value
+    return signatures
 
 
 def lsh_candidates(signatures, bands):
@@ -60,7 +84,27 @@ def lsh_candidates(signatures, bands):
     The signature length must divide evenly by `bands`, or you have to decide
     what to do with the remainder. Say what you decided.
     """
-    raise NotImplementedError("LSH candidate pairs")
+    if not isinstance(bands, int) or bands <= 0:
+        raise ValueError("bands must be a positive integer")
+    if not signatures:
+        return set()
+    length = len(signatures[0])
+    if not length or any(len(sig) != length for sig in signatures):
+        raise ValueError("signatures must have the same positive length")
+    # R5: reject uneven bands, rather than silently dropping signature rows.
+    if length % bands:
+        raise ValueError("signature length must be divisible by bands")
+    rows_per_band = length // bands
+    candidates = set()
+    for band in range(bands):
+        start = band * rows_per_band
+        buckets = {}
+        for c, signature in enumerate(signatures):
+            key = tuple(signature[start:start + rows_per_band])
+            buckets.setdefault(key, []).append(c)
+        for members in buckets.values():
+            candidates.update(combinations(members, 2))
+    return candidates
 
 
 # ------------------------------------------------------------------- harness

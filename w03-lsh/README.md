@@ -46,3 +46,40 @@ python3 ../check.py w03
 Tasks 1 and 3 run on synthetic data with a fixed seed, so everybody's numbers
 are comparable. Task 2 is about **your** machine, so its numbers are not
 supposed to match anybody else's — that is the point of it.
+
+## Reproduce this submission
+
+Only the Python standard library is needed. On Windows, use `python` instead
+of `python3`; `-X utf8` makes the Korean write-ups portable.
+
+```bash
+python -X utf8 task1_minhash.py --verify
+python -X utf8 task2_crossover.py --sizes 125,250,500,1000,2000,4000,8000 --stop-after 60
+python -X utf8 task2_crossover.py --sizes 625,750
+python -X utf8 bench.py --yours
+python -X utf8 parameter_sweep.py
+python -X utf8 test_edge_cases.py
+python -X utf8 test_tasks.py
+python -X utf8 ../check.py w03
+```
+
+The timing script now generates **exactly the requested number of documents**;
+the starter's `bench.build()[:n]` capped every larger input at 2,120.
+It writes completed measurements immediately and stops after a completed size
+if either method exceeds `--stop-after`. Runs append to `out/crossover.json`.
+The curve uses wall time with `tracemalloc` enabled; memory is additional traced
+allocation during the search, excluding the already-created input documents.
+Use `--output out/crossover-repeat.json` to keep the submitted measurements
+and write a new experiment separately. Each row includes its measurement time.
+
+`parameter_sweep.py` changes only the band count to reproduce the recall loss
+discussed in `out/observation.md`. `bench.py` and the supplied tests are unchanged.
+`w03-lsh/out/` is explicitly included in version control.
+
+## 실행 결과 읽기
+
+- [observation.md](out/observation.md): 과제별 핵심 관찰과 S-curve 계산
+- [curve.md](out/curve.md): 실제 실행 환경, 시간·메모리 표, 교차점과 중단 지점
+- [bench.txt](out/bench.txt): 수정하지 않은 공식 벤치마크의 실행 결과
+- [parameters.json](out/parameters.json): 밴드 수를 바꾼 비교 실험 원자료
+- [test_results.txt](out/test_results.txt), [submission_check.txt](out/submission_check.txt): 공식 검사 결과

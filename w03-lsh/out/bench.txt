@@ -1,0 +1,13 @@
+Command: python -X utf8 bench.py --yours
+
+  2,120 documents, threshold 0.6
+  121 truly similar pairs
+
+  baseline     comparisons  2,246,140   recall 100.0%   precision 100.0%     7.06s
+  yours        comparisons        122   recall 100.0%   precision 100.0%     0.59s
+
+   ok    recall 100.0%
+   comparisons avoided  99.99%  (122 instead of 2,246,140)
+
+   -> strong
+

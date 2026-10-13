@@ -17,6 +17,10 @@ It also checks **recall** - which of the truly similar pairs you found. Skipping
 comparisons is easy; skipping comparisons without losing the pairs is the task.
 """
 
+import random
+
+from task1_minhash import lsh_candidates, minhash_signatures
+
 
 class BruteForce:
     """Correct, and quadratic."""
@@ -60,8 +64,47 @@ class YourFinder:
     You may reuse your Task 1 code.
     """
 
-    def __init__(self, threshold):
-        raise NotImplementedError("write your finder")
+    def __init__(self, threshold, num_hashes=120, bands=30, seed=246):
+        if num_hashes <= 0 or bands <= 0 or num_hashes % bands:
+            raise ValueError("num_hashes must be positive and divisible by bands")
+        self.threshold = threshold
+        self.num_hashes = num_hashes
+        self.bands = bands
+        self.seed = seed
 
     def find(self, docs, similarity):
-        raise NotImplementedError
+        if len(docs) < 2:
+            return set()
+        if self.threshold <= 0:
+            return BruteForce(self.threshold).find(docs, similarity)
+
+        # Assign dense row numbers without sorting or revisiting the matrix.
+        row_ids = {}
+        columns = []
+        for doc in docs:
+            column = set()
+            for shingle in doc:
+                if shingle not in row_ids:
+                    row_ids[shingle] = len(row_ids)
+                column.add(row_ids[shingle])
+            columns.append(column)
+
+        # Independent affine hashes over a prime field, reproducible by seed.
+        prime = (1 << 61) - 1
+        rng = random.Random(self.seed)
+        coefficients = [(rng.randrange(1, prime), rng.randrange(prime))
+                        for _ in range(self.num_hashes)]
+        hashes = [lambda row, a=a, b=b: (a * row + b) % prime
+                  for a, b in coefficients]
+        signatures = minhash_signatures(columns, hashes, len(row_ids))
+
+        # Empty documents have Jaccard 0; exclude their all-infinity signature.
+        nonempty = [i for i, doc in enumerate(docs) if doc]
+        candidates = lsh_candidates([signatures[i] for i in nonempty], self.bands)
+        out = set()
+        for left, right in sorted(candidates):
+            i, j = nonempty[left], nonempty[right]
+            # Never compare the documents outside the supplied counted callback.
+            if similarity(docs[i], docs[j]) >= self.threshold:
+                out.add((i, j))
+        return out
