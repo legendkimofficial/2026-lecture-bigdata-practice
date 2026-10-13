@@ -1,0 +1,110 @@
+{
+  "seed": 246,
+  "stream_length": 120000,
+  "true_distinct": 19953,
+  "n_hashes": 64,
+  "group_size": 8,
+  "registers": [
+    18,
+    14,
+    14,
+    18,
+    13,
+    12,
+    15,
+    15,
+    14,
+    18,
+    17,
+    16,
+    12,
+    13,
+    13,
+    14,
+    19,
+    16,
+    12,
+    14,
+    16,
+    13,
+    14,
+    14,
+    15,
+    14,
+    17,
+    14,
+    16,
+    13,
+    16,
+    12,
+    18,
+    14,
+    14,
+    15,
+    18,
+    16,
+    17,
+    12,
+    14,
+    13,
+    12,
+    18,
+    17,
+    15,
+    13,
+    13,
+    16,
+    17,
+    14,
+    14,
+    15,
+    15,
+    13,
+    14,
+    14,
+    14,
+    15,
+    12,
+    14,
+    18,
+    17,
+    18
+  ],
+  "group_arithmetic_means": [
+    79360.0,
+    64000.0,
+    89600.0,
+    42496.0,
+    98816.0,
+    58880.0,
+    39936.0,
+    92672.0
+  ],
+  "lecture_reference": {
+    "title": "Week04-01",
+    "timestamps": [
+      "21:18",
+      "23:27",
+      "24:46"
+    ],
+    "rule": "Arithmetic mean of 2^R within groups, then median"
+  },
+  "estimates": {
+    "arithmetic_mean_of_2_to_R": {
+      "estimate": 70720.0,
+      "ratio": 3.544329173557861
+    },
+    "median_of_2_to_R": {
+      "estimate": 16384.0,
+      "ratio": 0.8211296546885181
+    },
+    "median_of_group_arithmetic_means_lecture": {
+      "estimate": 71680.0,
+      "ratio": 3.592442239262266
+    },
+    "median_of_group_geometric_means_used": {
+      "estimate": 27554.493735033717,
+      "ratio": 1.3809699661721906
+    }
+  }
+}

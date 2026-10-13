@@ -1,0 +1,18 @@
+{
+  "n": 50000000,
+  "started_at": "2026-10-13T14:13:00.140823+09:00",
+  "system_total_ram_bytes": 16605634560,
+  "system_available_ram_bytes_before": 2465144832,
+  "system_load_percent_before": 85,
+  "thresholds": {
+    "maximum_seconds": 60.0,
+    "minimum_available_ram_bytes": 536870912,
+    "maximum_child_resident_bytes": 2147483648
+  },
+  "status": "stopped_at_practical_limit",
+  "child_peak_resident_bytes": 2550620160,
+  "minimum_system_available_ram_bytes": 487190528,
+  "stopping_reason": "system_available_ram_below_512_MiB",
+  "probe_wall_seconds": 40.76723769999808,
+  "child_exit_code": 1
+}

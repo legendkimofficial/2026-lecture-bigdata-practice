@@ -1,0 +1,67 @@
+{
+  "runs": [
+    {
+      "n": 100000,
+      "true_distinct": 36702,
+      "exact_s": 0.3506833999999799,
+      "exact_peak_bytes": 3925612,
+      "fm_estimate": 44417.89426932293,
+      "fm_s": 1.8654228000013973,
+      "fm_peak_bytes": 4897,
+      "fm_ratio": 1.2102308939382849
+    },
+    {
+      "n": 400000,
+      "true_distinct": 146970,
+      "exact_s": 1.289182399999845,
+      "exact_peak_bytes": 11591308,
+      "fm_estimate": 193752.22867761797,
+      "fm_s": 5.325418499996886,
+      "fm_peak_bytes": 4727,
+      "fm_ratio": 1.3183114151025241
+    },
+    {
+      "n": 1600000,
+      "true_distinct": 587625,
+      "exact_s": 3.7259303999999247,
+      "exact_peak_bytes": 46647606,
+      "fm_estimate": 845153.2143762787,
+      "fm_s": 12.034538500000053,
+      "fm_peak_bytes": 4729,
+      "fm_ratio": 1.438252651565673
+    },
+    {
+      "n": 6400000,
+      "true_distinct": 2349909,
+      "exact_s": 15.123077199998079,
+      "exact_peak_bytes": 188287586,
+      "fm_estimate": 2493948.0796421864,
+      "fm_s": 102.5908488999994,
+      "fm_peak_bytes": 4730,
+      "fm_ratio": 1.0612955989539112
+    }
+  ],
+  "machine": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 181 Stepping 0, GenuineIntel",
+    "python": "3.12.14",
+    "cpu_name": "Intel(R) Core(TM) Ultra 5 225U",
+    "cpu_cores": 12,
+    "cpu_logical_processors": 14,
+    "ram_bytes": 16605634560,
+    "available_ram_bytes_at_initial_measurement": 1294585856,
+    "memory_load_percent_at_initial_measurement": 92,
+    "foreground_applications": [
+      "ChatGPT",
+      "Chrome",
+      "Notepad",
+      "Notion",
+      "Realtek Audio Console",
+      "Snipping Tool",
+      "Windows Settings"
+    ],
+    "measurement_date": "2026-10-13",
+    "timezone": "Asia/Seoul",
+    "measurement_note": "Local Windows machine, bundled Python 3.12.14; time and Python allocation peaks measured with tracemalloc enabled."
+  }
+}
