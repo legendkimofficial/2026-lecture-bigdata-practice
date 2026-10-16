@@ -1,0 +1,9 @@
+  ok    ranks sum to 1                                   1.000000
+  ok    every node ranked                                ['A', 'B', 'C']
+  ok    C outranks A and B                               {'A': 0.3878, 'B': 0.2148, 'C': 0.3974}
+  ok    without the fix, a dead end drains the graph     total rank 0.0000
+  ok    with the fix, rank is conserved                  1.000000
+  ok    without the fix, a spider trap takes everything  C+D = 1.0000
+  ok    with the fix, A and B keep some rank             {'A': 0.0375, 'B': 0.0694, 'C': 0.4625, 'D': 0.4306}
+
+  all ok

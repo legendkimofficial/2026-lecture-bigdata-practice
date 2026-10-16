@@ -1,6 +1,7 @@
 # student output
 */out/
 !w03-lsh/out/
+!w05-pagerank/out/
 
 # python
 __pycache__/

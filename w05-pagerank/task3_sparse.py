@@ -86,10 +86,53 @@ class YourPageRank:
     """
 
     def __init__(self, beta=0.85, tol=1e-10, max_iter=100):
-        raise NotImplementedError("write your PageRank")
+        self.beta, self.tol, self.max_iter = beta, tol, max_iter
+        self.iterations = 0
+        self._peak_floats = 2
 
     def run(self, graph):
-        raise NotImplementedError
+        nodes = list(graph)
+        n = len(nodes)
+        self.iterations = 0
+        self._peak_floats = 16
+        if not n:
+            return {}
+
+        index = {node: i for i, node in enumerate(nodes)}
+        links, dangling = [], []
+        for source, outs in enumerate(graph.values()):
+            if outs:
+                # Keep integer destinations and the integer degree, not M's
+                # floating-point entries. De-duplication also reproduces the
+                # dense implementation's assignment semantics for repeated
+                # destinations; its denominator is still the original degree.
+                targets = [index[node] for node in dict.fromkeys(outs)]
+                links.append((source, targets, len(outs)))
+            else:
+                dangling.append(source)
+
+        beta = self.beta
+        teleport = (1.0 - beta) / n
+        r = [1.0 / n] * n
+        # Count floating-point slots conservatively, even where Python shares
+        # the same float object: two rank buffers (or the final buffer plus
+        # output dictionary) and 16 slots for parameters/scalar temporaries.
+        # Adjacency destinations and degrees are integers, so there is no
+        # floating-point storage proportional to the edge count.
+        self._peak_floats = 2 * n + 16
+        for self.iterations in range(1, self.max_iter + 1):
+            dead_mass = sum(r[source] for source in dangling)
+            base = teleport + beta * dead_mass / n
+            nr = [base] * n
+            for source, targets, degree in links:
+                share = beta * r[source] / degree
+                for target in targets:
+                    nr[target] += share
+            delta = sum(abs(a - b) for a, b in zip(nr, r))
+            r = nr
+            if delta < self.tol:
+                break
+        return dict(zip(nodes, r))
 
     def memory_floats(self):
-        raise NotImplementedError
+        return self._peak_floats

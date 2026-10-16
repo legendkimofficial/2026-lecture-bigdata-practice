@@ -13,6 +13,7 @@ broken version first so you can see each failure, then fix it.
     python3 task1_pagerank.py --verify
 """
 import argparse
+import math
 
 # A: -> B, C      B: -> C      C: -> A
 SIMPLE = {"A": ["B", "C"], "B": ["C"], "C": ["A"]}
@@ -22,6 +23,15 @@ DEAD_END = {"A": ["B", "C"], "B": ["C"], "C": []}
 
 # C and D only point at each other. They absorb everything.
 SPIDER_TRAP = {"A": ["B"], "B": ["C"], "C": ["D"], "D": ["C"]}
+
+
+def _adjacency(graph):
+    """Copy links and include destinations that have no explicit source entry."""
+    links = {node: tuple(targets) for node, targets in graph.items()}
+    for targets in tuple(links.values()):
+        for target in targets:
+            links.setdefault(target, ())
+    return links
 
 
 def pagerank(graph, beta=0.85, iterations=100, tol=1e-10):
@@ -41,7 +51,44 @@ def pagerank(graph, beta=0.85, iterations=100, tol=1e-10):
     you should call it converged. Return the ranks, and set `pagerank.iterations`
     to how many you actually used, because Task 2 measures that.
     """
-    raise NotImplementedError("implement PageRank")
+    if not math.isfinite(beta) or not 0 <= beta <= 1:
+        raise ValueError("beta must be between 0 and 1")
+    if not isinstance(iterations, int) or iterations < 0:
+        raise ValueError("iterations must be a nonnegative integer")
+    if not math.isfinite(tol) or tol < 0:
+        raise ValueError("tol must be finite and nonnegative")
+
+    pagerank.iterations = 0
+    pagerank.delta = float("inf")
+    pagerank.converged = False
+    links = _adjacency(graph)
+    n = len(links)
+    if not n:
+        pagerank.delta = 0.0
+        pagerank.converged = True
+        return {}
+
+    ranks = dict.fromkeys(links, 1.0 / n)
+    dangling = [node for node, targets in links.items() if not targets]
+    for step in range(iterations):
+        # A dangling surfer chooses a new node uniformly, so no mass is lost.
+        dangling_mass = sum(ranks[node] for node in dangling)
+        uniform = ((1.0 - beta) + beta * dangling_mass) / n
+        next_ranks = dict.fromkeys(links, uniform)
+        for node, targets in links.items():
+            if targets:
+                share = beta * ranks[node] / len(targets)
+                for target in targets:
+                    next_ranks[target] += share
+
+        change = sum(abs(next_ranks[node] - ranks[node]) for node in links)
+        ranks = next_ranks
+        pagerank.iterations = step + 1
+        pagerank.delta = change
+        pagerank.converged = change < tol
+        if pagerank.converged:
+            break
+    return ranks
 
 
 def pagerank_no_teleport(graph, iterations=100):
@@ -50,7 +97,23 @@ def pagerank_no_teleport(graph, iterations=100):
     It exists so you can watch both failures happen rather than take them on
     trust. The harness checks that it really does fail.
     """
-    raise NotImplementedError("implement the broken version")
+    if not isinstance(iterations, int) or iterations < 0:
+        raise ValueError("iterations must be a nonnegative integer")
+    links = _adjacency(graph)
+    if not links:
+        return {}
+
+    ranks = dict.fromkeys(links, 1.0 / len(links))
+    for _ in range(iterations):
+        next_ranks = dict.fromkeys(links, 0.0)
+        for node, targets in links.items():
+            if targets:
+                share = ranks[node] / len(targets)
+                for target in targets:
+                    next_ranks[target] += share
+        # Intentionally omit dangling redistribution and teleportation.
+        ranks = next_ranks
+    return ranks
 
 
 # ------------------------------------------------------------------- harness
