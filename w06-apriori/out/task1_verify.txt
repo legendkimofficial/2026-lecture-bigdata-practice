@@ -1,0 +1,7 @@
+  ok    frequent singletons at support 3             {'beer': 5, 'bread': 5, 'diaper': 5, 'milk': 5}
+  ok    frequent pairs at support 3                  {('beer', 'bread'): 3, ('beer', 'diaper'): 4, ('beer', 'milk'): 3, ('bread', 'diaper'): 3, ('bread', 'milk'): 4, ('diaper', 'milk'): 3}
+  ok    infrequent items excluded from pairs         False
+  ok    diaper -> beer confidence                    0.8
+  ok    rules are sorted by confidence               True
+
+  all ok

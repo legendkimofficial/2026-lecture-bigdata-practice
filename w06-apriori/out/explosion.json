@@ -1,0 +1,386 @@
+{
+  "runs": [
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 400,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 146,
+      "possible_survivor_pairs": 10585,
+      "status": "completed",
+      "frequent_pairs": 249,
+      "seconds": 0.941080000004149,
+      "peak_bytes": 1056658,
+      "peak_counters": 10585
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 200,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 345,
+      "possible_survivor_pairs": 59340,
+      "status": "completed",
+      "frequent_pairs": 776,
+      "seconds": 1.6152865999974892,
+      "peak_bytes": 6383968,
+      "peak_counters": 58626
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 100,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 825,
+      "possible_survivor_pairs": 339900,
+      "status": "completed",
+      "frequent_pairs": 2244,
+      "seconds": 2.5874997999999323,
+      "peak_bytes": 26392200,
+      "peak_counters": 273701
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 50,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 1849,
+      "possible_survivor_pairs": 1708476,
+      "status": "completed",
+      "frequent_pairs": 6397,
+      "seconds": 4.464013700002397,
+      "peak_bytes": 102174360,
+      "peak_counters": 820259
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 25,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 2000,
+      "possible_survivor_pairs": 1999000,
+      "status": "completed",
+      "frequent_pairs": 17045,
+      "seconds": 4.9108640999984345,
+      "peak_bytes": 102171928,
+      "peak_counters": 893456
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 12,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 2000,
+      "possible_survivor_pairs": 1999000,
+      "status": "completed",
+      "frequent_pairs": 43116,
+      "seconds": 5.167455900002096,
+      "peak_bytes": 102718968,
+      "peak_counters": 893456
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 6,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 2000,
+      "possible_survivor_pairs": 1999000,
+      "status": "completed",
+      "frequent_pairs": 101938,
+      "seconds": 6.208947300001455,
+      "peak_bytes": 119356736,
+      "peak_counters": 893456
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 3,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 2000,
+      "possible_survivor_pairs": 1999000,
+      "status": "completed",
+      "frequent_pairs": 250054,
+      "seconds": 6.3237920999963535,
+      "peak_bytes": 156592664,
+      "peak_counters": 893456
+    },
+    {
+      "batch_id": "2026-10-16T15:57:03.647374+00:00",
+      "support": 1,
+      "dataset": {
+        "seed": 246,
+        "items": 2000,
+        "baskets": 20000,
+        "avg": 20
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot 2026-10-17 KST: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; parallel Codex lab verification may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 4139884544
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60,
+      "frequent_singletons": 2000,
+      "possible_survivor_pairs": 1999000,
+      "status": "completed",
+      "frequent_pairs": 893456,
+      "seconds": 7.727877500001341,
+      "peak_bytes": 327024704,
+      "peak_counters": 893456
+    },
+    {
+      "batch_id": "2026-10-16T15:58:19.444014+00:00",
+      "support": 400,
+      "dataset": {
+        "seed": 246,
+        "items": 20000,
+        "baskets": 60000,
+        "avg": 30
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; other Codex lab profiling may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 3836846080
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60.0,
+      "frequent_singletons": 477,
+      "possible_survivor_pairs": 113526,
+      "status": "completed",
+      "frequent_pairs": 996,
+      "seconds": 5.64221269999689,
+      "peak_bytes": 13412322,
+      "peak_counters": 112944
+    },
+    {
+      "batch_id": "2026-10-16T15:58:19.444014+00:00",
+      "support": 200,
+      "dataset": {
+        "seed": 246,
+        "items": 20000,
+        "baskets": 60000,
+        "avg": 30
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; other Codex lab profiling may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 3836846080
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60.0,
+      "frequent_singletons": 1140,
+      "possible_survivor_pairs": 649230,
+      "status": "completed",
+      "frequent_pairs": 2824,
+      "seconds": 7.830281400005333,
+      "peak_bytes": 53788392,
+      "peak_counters": 560800
+    },
+    {
+      "batch_id": "2026-10-16T15:58:19.444014+00:00",
+      "support": 100,
+      "dataset": {
+        "seed": 246,
+        "items": 20000,
+        "baskets": 60000,
+        "avg": 30
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; other Codex lab profiling may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 3836846080
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60.0,
+      "frequent_singletons": 2728,
+      "possible_survivor_pairs": 3719628,
+      "status": "completed",
+      "frequent_pairs": 7817,
+      "seconds": 13.097274800005835,
+      "peak_bytes": 204783016,
+      "peak_counters": 1972582
+    },
+    {
+      "batch_id": "2026-10-16T15:58:19.444014+00:00",
+      "support": 50,
+      "dataset": {
+        "seed": 246,
+        "items": 20000,
+        "baskets": 60000,
+        "avg": 30
+      },
+      "machine": {
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+        "python": "3.12.14",
+        "logical_cpus": 6,
+        "background": "CIM snapshot: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; other Codex lab profiling may overlap",
+        "ram_bytes": 17124917248,
+        "available_ram_bytes_at_start": 3836846080
+      },
+      "max_bytes": 268435456,
+      "max_seconds": 60.0,
+      "frequent_singletons": 6552,
+      "possible_survivor_pairs": 21461076,
+      "status": "stopped",
+      "frequent_pairs": null,
+      "stop_reason": "traced Python allocation budget reached",
+      "stopped_in_pass": 2,
+      "baskets_processed_in_pass": 24960,
+      "seconds": 10.734965199997532,
+      "peak_bytes": 409292392,
+      "peak_counters": 2797537
+    }
+  ],
+  "machine": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel(R) Core(TM) i5-8500 CPU @ 3.00GHz",
+    "python": "3.12.14",
+    "logical_cpus": 6,
+    "background": "CIM snapshot: ChatGPT, Notion, Claude, Codex, Windows Defender, Explorer, Steam WebHelper; other Codex lab profiling may overlap",
+    "ram_bytes": 17124917248,
+    "available_ram_bytes_at_start": 3836846080
+  },
+  "measurement": "PlainApriori with tracemalloc active; perf_counter wall time includes tracing and limit checks every 64 baskets (not during final output construction). These are sampled comfort budgets, not strict process limits. Peak Python allocations exclude prebuilt input baskets, interpreter and native allocations; this is not process RSS. Completed peak counters include the baseline's pair-count dictionary only, as defined by the unmodified benchmark. Interrupted frequent_pairs is null.",
+  "interpretation_notes": [
+    "The default support=1 run completed at 311.88 MiB. Its final output construction exceeded the 256 MiB sampled budget after the last basket check.",
+    "The scaled support=50 run stopped during pass two at 390.33 MiB after a dictionary resize exceeded the 256 MiB sampled budget. This was a deliberate budget stop, not an OS OOM.",
+    "Rows with 2,000 and 20,000 items are different dataset sizes and must not be plotted as one support curve. Raw measured numeric fields are retained unchanged."
+  ]
+}

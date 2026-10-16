@@ -1,0 +1,172 @@
+{
+  "generated_utc": "2026-10-16T15:57:30.020094+00:00",
+  "machine": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "input": {
+    "seed": 246,
+    "baskets": 20000,
+    "items": 2000,
+    "support": 50
+  },
+  "notes": [
+    "bench.py and PlainApriori remain unmodified. Every correctness comparison checks full support dictionaries, not keys alone.",
+    "The integer bucket array is deleted before pass-two pair counters are created. The bitmap has one bit per bucket.",
+    "Peak counters include output construction: popping entries before adding results prevents counter duplication.",
+    "tracemalloc profiles run sequentially after input construction and GC; reported peak includes new algorithm allocations and output but excludes pre-existing baskets/reference.",
+    "Wall times depend on concurrent system work; tracemalloc substantially slows execution.",
+    "First-encounter internal integer IDs permit mixed hashable items without sorting or numerically hashing user items."
+  ],
+  "correctness_checks": {
+    "random_seed": 606,
+    "cases": 207,
+    "bucket_counts": [
+      1,
+      7,
+      64,
+      257
+    ],
+    "exact_dict_checks": 828,
+    "repeated_run_reset_checks": 828,
+    "mixed_hashable_and_duplicate_item_edges": true
+  },
+  "baseline": {
+    "frequent_pairs": 6397,
+    "peak_counters": 820259,
+    "seconds": 1.7468879999942146
+  },
+  "bucket_experiments": [
+    {
+      "bucket_count": 1048576,
+      "frequent_pairs": 6397,
+      "exact_support_dictionary_equal": true,
+      "peak_counters": 13357,
+      "counter_reduction": 0.9837161189331662,
+      "bucket_array_object_bytes": 4194384,
+      "bitmap_object_bytes": 131129,
+      "bucket_payload_bytes": 4194304,
+      "bitmap_payload_bytes": 131072,
+      "frequent_buckets": 6981,
+      "seconds": 2.494235400001344
+    },
+    {
+      "bucket_count": 65536,
+      "frequent_pairs": 6397,
+      "exact_support_dictionary_equal": true,
+      "peak_counters": 313855,
+      "counter_reduction": 0.6173708548153694,
+      "bucket_array_object_bytes": 262224,
+      "bitmap_object_bytes": 8249,
+      "bucket_payload_bytes": 262144,
+      "bitmap_payload_bytes": 8192,
+      "frequent_buckets": 21574,
+      "seconds": 2.949734499998158
+    }
+  ],
+  "memory_profiles": [
+    {
+      "baskets": 1000,
+      "algorithm": "baseline",
+      "peak_counters": 1078,
+      "frequent_pairs": 59,
+      "traced_current_bytes": 77556,
+      "traced_peak_bytes": 190884,
+      "seconds_with_tracing": 0.029030599995166995
+    },
+    {
+      "baskets": 1000,
+      "algorithm": "PCY_1048576",
+      "peak_counters": 60,
+      "frequent_pairs": 59,
+      "traced_current_bytes": 21776,
+      "traced_peak_bytes": 4484661,
+      "seconds_with_tracing": 2.277827099998831
+    },
+    {
+      "baskets": 2000,
+      "algorithm": "baseline",
+      "peak_counters": 6228,
+      "frequent_pairs": 179,
+      "traced_current_bytes": 162940,
+      "traced_peak_bytes": 834044,
+      "seconds_with_tracing": 0.08852130000013858
+    },
+    {
+      "baskets": 2000,
+      "algorithm": "PCY_1048576",
+      "peak_counters": 182,
+      "frequent_pairs": 179,
+      "traced_current_bytes": 61816,
+      "traced_peak_bytes": 4493617,
+      "seconds_with_tracing": 3.4898818000001484
+    },
+    {
+      "baskets": 3000,
+      "algorithm": "baseline",
+      "peak_counters": 16388,
+      "frequent_pairs": 361,
+      "traced_current_bytes": 211932,
+      "traced_peak_bytes": 1695892,
+      "seconds_with_tracing": 0.18183419999695616
+    },
+    {
+      "baskets": 3000,
+      "algorithm": "PCY_1048576",
+      "peak_counters": 373,
+      "frequent_pairs": 361,
+      "traced_current_bytes": 121372,
+      "traced_peak_bytes": 4495317,
+      "seconds_with_tracing": 4.979009599999699
+    },
+    {
+      "baskets": 5000,
+      "algorithm": "baseline",
+      "peak_counters": 50168,
+      "frequent_pairs": 823,
+      "traced_current_bytes": 331476,
+      "traced_peak_bytes": 6491324,
+      "seconds_with_tracing": 0.4454537999990862
+    },
+    {
+      "baskets": 5000,
+      "algorithm": "PCY_1048576",
+      "peak_counters": 882,
+      "frequent_pairs": 823,
+      "traced_current_bytes": 269164,
+      "traced_peak_bytes": 4524149,
+      "seconds_with_tracing": 8.66578329999902
+    },
+    {
+      "baskets": 20000,
+      "algorithm": "baseline",
+      "peak_counters": 820259,
+      "frequent_pairs": 6397,
+      "traced_current_bytes": 1808148,
+      "traced_peak_bytes": 102288652,
+      "seconds_with_tracing": 5.221812299998419,
+      "exact_support_dictionary_equal": true
+    },
+    {
+      "baskets": 20000,
+      "algorithm": "PCY_1048576",
+      "peak_counters": 13357,
+      "frequent_pairs": 6397,
+      "traced_current_bytes": 1808276,
+      "traced_peak_bytes": 4667833,
+      "seconds_with_tracing": 50.505144399998244,
+      "exact_support_dictionary_equal": true
+    }
+  ],
+  "memory_summary": {
+    "full_data_peak_reduction": 0.9543660718101945,
+    "full_data_baseline_peak_MiB": 97.5500602722168,
+    "full_data_PCY_peak_MiB": 4.451592445373535,
+    "observed_crossover_basket_bracket": [
+      3000,
+      5000
+    ],
+    "crossover_conditions": "First n baskets of the fixed-seed benchmark; 2,000-item vocabulary, support50, default1,048,576 buckets; PCY is larger at3,000 and smaller at5,000 baskets.",
+    "interpretation": "This is incremental traced Python memory including output, not whole-process RSS. PCY has a roughly4.5MB fixed first-pass cost; crossover varies with support, number and length of baskets, vocabulary and bucket collisions."
+  }
+}

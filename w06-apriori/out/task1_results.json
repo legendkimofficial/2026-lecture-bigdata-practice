@@ -1,0 +1,29 @@
+{
+  "dataset": {
+    "seed": 246,
+    "items": 2000,
+    "baskets": 20000,
+    "support": 50
+  },
+  "bruteforce_possible_pair_counters": 1999000,
+  "frequent_singleton_count": 1849,
+  "apriori_possible_pair_counters": 1708476,
+  "frequent_pair_count": 6397,
+  "highest_confidence_rule": {
+    "antecedent": 1468,
+    "consequent": 0,
+    "pair_support": 52,
+    "antecedent_support": 62,
+    "consequent_support": 13080,
+    "confidence": 0.8387096774193549,
+    "lift": 1.2824306994179737,
+    "reverse_confidence": 0.003975535168195718,
+    "reverse_lift": 1.2824306994179737,
+    "consequent_baseline_fraction": 0.654
+  },
+  "verification": {
+    "harness_checks_passed": 5,
+    "seeded_oracle_cases": 100,
+    "duplicates_empty_iterators_asymmetry_early_pruning": true
+  }
+}

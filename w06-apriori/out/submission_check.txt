@@ -1,0 +1,9 @@
+== w06-apriori/out/ ==
+
+  [ok]      explosion.json       runs from task2_explosion.py  (14,235 bytes)
+  [ok]      explosion.md         the explosion curve  (5,653 bytes)
+  [ok]      bench.txt            python3 bench.py --yours  (306 bytes)
+  [ok]      observation.md       2-3 lines per task  (3,294 bytes)
+  [optional]task4.txt            optional task 4 output
+
+  Format check passed. Whether it is right is up to you.

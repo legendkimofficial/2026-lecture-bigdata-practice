@@ -18,8 +18,11 @@ spending pass one's spare memory to shrink it.
 Correctness first: you must find exactly the same frequent pairs. Finding fewer
 is not an optimisation.
 """
+from array import array
 from collections import Counter
 from itertools import combinations
+from operator import index
+from sys import getsizeof
 
 
 class PlainApriori:
@@ -75,8 +78,74 @@ class YourAlgorithm:
         observation.md asks about it
     """
 
-    def __init__(self, support):
-        raise NotImplementedError("write your algorithm")
+    def __init__(self, support, bucket_count=1 << 20):
+        self.support = index(support)
+        self.bucket_count = index(bucket_count)
+        if self.support <= 0 or self.bucket_count <= 0:
+            raise ValueError("support and bucket_count must be positive integers")
+        self.peak_counters = 0
+        self.bucket_array_bytes = 0
+        self.bitmap_bytes = 0
+        self.frequent_bucket_count = 0
 
     def run(self, baskets):
-        raise NotImplementedError
+        # As with PlainApriori, baskets must be iterable twice. IDs are assigned
+        # in first-encounter order: arbitrary hashable items need not be sortable.
+        self.peak_counters = 0
+        support, bucket_count = self.support, self.bucket_count
+        item_ids, original_items, item_counts = {}, [], []
+        # A packed unsigned integer array, not a million Python integer objects.
+        # Saturating at support preserves the only question PCY asks of a bucket.
+        typecode = "I" if support <= 0xffffffff else "Q"
+        buckets = array(typecode, [0]) * bucket_count
+        self.bucket_array_bytes = getsizeof(buckets)
+
+        for basket in baskets:
+            ids = []
+            for item in set(basket):  # support counts baskets, not duplicate rows
+                item_id = item_ids.get(item)
+                if item_id is None:
+                    item_id = len(original_items)
+                    item_ids[item] = item_id
+                    original_items.append(item)
+                    item_counts.append(0)
+                item_counts[item_id] += 1
+                ids.append(item_id)
+            ids.sort()
+            for left, right in combinations(ids, 2):
+                bucket = ((left * 0x9e3779b1) ^ (right * 0x85ebca77)) % bucket_count
+                if buckets[bucket] < support:
+                    buckets[bucket] += 1
+
+        frequent = {i for i, count in enumerate(item_counts) if count >= support}
+        bitmap = bytearray((bucket_count + 7) // 8)
+        frequent_buckets = 0
+        for bucket, count in enumerate(buckets):
+            if count >= support:
+                bitmap[bucket >> 3] |= 1 << (bucket & 7)
+                frequent_buckets += 1
+        self.bitmap_bytes = getsizeof(bitmap)
+        self.frequent_bucket_count = frequent_buckets
+        # Crucially, free the integer array before allocating any pair counters.
+        del buckets, item_counts
+
+        pair_counts = {}
+        for basket in baskets:
+            ids = sorted({item_ids[item] for item in basket
+                          if item_ids[item] in frequent})
+            for left, right in combinations(ids, 2):
+                bucket = ((left * 0x9e3779b1) ^ (right * 0x85ebca77)) % bucket_count
+                if bitmap[bucket >> 3] & (1 << (bucket & 7)):
+                    pair = (left, right)
+                    pair_counts[pair] = pair_counts.get(pair, 0) + 1
+            self.peak_counters = max(self.peak_counters, len(pair_counts))
+
+        # Transfer entries instead of holding two complete support dictionaries.
+        # len(pair_counts) + len(result) never exceeds peak_counters, including
+        # during output construction; the bitmap is memory but is not a counter.
+        result = {}
+        while pair_counts:
+            (left, right), count = pair_counts.popitem()
+            if count >= support:
+                result[frozenset((original_items[left], original_items[right]))] = count
+        return result
