@@ -22,7 +22,21 @@ BLOBS = [(0.0, 0.0), (0.2, 0.1), (0.1, 0.2),
 
 def euclidean(a, b):
     """Distance between two points of any dimension."""
-    raise NotImplementedError("distance")
+    return math.sqrt(_squared_distance(a, b))
+
+
+def _squared_distance(a, b):
+    if len(a) != len(b):
+        raise ValueError("points must have the same dimension")
+    return sum((x - y) ** 2 for x, y in zip(a, b))
+
+
+def _check_points(points):
+    if not points or not points[0]:
+        raise ValueError("at least one nonempty point is required")
+    dim = len(points[0])
+    if any(len(point) != dim for point in points):
+        raise ValueError("points must have the same dimension")
 
 
 def assign(points, centroids):
@@ -30,7 +44,12 @@ def assign(points, centroids):
 
     Ties go to the lower index, so that everybody's answer is the same.
     """
-    raise NotImplementedError("assignment step")
+    if not centroids:
+        raise ValueError("at least one centroid is required")
+    # min keeps the first index on equal keys. Squaring preserves distance order.
+    return [min(range(len(centroids)),
+                key=lambda j: _squared_distance(point, centroids[j]))
+            for point in points]
 
 
 def update(points, labels, k):
@@ -39,7 +58,35 @@ def update(points, labels, k):
     An empty cluster has no mean. Decide what you do - and say so, because the
     choice changes the result and there is more than one defensible answer.
     """
-    raise NotImplementedError("update step")
+    _check_points(points)
+    if not isinstance(k, int) or not 1 <= k <= len(points):
+        raise ValueError("k must be an integer between 1 and the point count")
+    if len(labels) != len(points):
+        raise ValueError("each point needs one label")
+    dim = len(points[0])
+    sums = [[0.0] * dim for _ in range(k)]
+    counts = [0] * k
+    for point, label in zip(points, labels):
+        if not isinstance(label, int) or not 0 <= label < k:
+            raise ValueError("labels must be valid centroid indices")
+        counts[label] += 1
+        for axis, value in enumerate(point):
+            sums[label][axis] += value
+    centroids = [tuple(value / count for value in total) if count else None
+                 for total, count in zip(sums, counts)]
+
+    empty = [j for j, count in enumerate(counts) if count == 0]
+    if empty:
+        # The public signature has no previous centroids. Place empty centres at
+        # the points with largest residuals from their newly computed own means.
+        # Point index resolves residual ties; each empty centre uses a different
+        # point index. Duplicate coordinates can still leave a cluster empty.
+        ranked = sorted(range(len(points)),
+                        key=lambda i: (-_squared_distance(
+                            points[i], centroids[labels[i]]), i))
+        for j, i in zip(empty, ranked):
+            centroids[j] = tuple(points[i])
+    return centroids
 
 
 def kmeans(points, k, init="random", seed=246, max_iter=100):
@@ -56,12 +103,65 @@ def kmeans(points, k, init="random", seed=246, max_iter=100):
 
     Set `kmeans.iterations` to how many passes you used.
     """
-    raise NotImplementedError("k-means")
+    kmeans.iterations = 0
+    _check_points(points)
+    if not isinstance(k, int) or not 1 <= k <= len(points):
+        raise ValueError("k must be an integer between 1 and the point count")
+    if not isinstance(max_iter, int) or max_iter < 1:
+        raise ValueError("max_iter must be a positive integer")
+    if init not in ("random", "++"):
+        raise ValueError('init must be "random" or "++"')
+    rng = random.Random(seed)
+    if init == "random":
+        centroids = [tuple(point) for point in rng.sample(points, k)]
+    else:
+        selected = [rng.randrange(len(points))]
+        nearest = [_squared_distance(point, points[selected[0]])
+                   for point in points]
+        while len(selected) < k:
+            total = sum(nearest)
+            if total == 0:
+                # Fewer than k distinct coordinates: all D^2 weights are zero.
+                # Select an unused index deterministically, without dividing by 0.
+                chosen = next(i for i in range(len(points)) if i not in selected)
+            else:
+                target = rng.random() * total
+                cumulative = 0.0
+                chosen = max(i for i, weight in enumerate(nearest) if weight > 0)
+                for i, weight in enumerate(nearest):
+                    cumulative += weight
+                    if target < cumulative:
+                        chosen = i
+                        break
+            selected.append(chosen)
+            if len(selected) < k:
+                nearest = [min(old, _squared_distance(point, points[chosen]))
+                           for old, point in zip(nearest, points)]
+        centroids = [tuple(points[i]) for i in selected]
+
+    labels = None
+    for iteration in range(1, max_iter + 1):
+        next_labels = assign(points, centroids)
+        centroids = update(points, next_labels, k)
+        kmeans.iterations = iteration
+        if next_labels == labels:
+            break
+        labels = next_labels
+    return next_labels, centroids, sse_of(points, next_labels, centroids)
+
+
+kmeans.iterations = 0
 
 
 def sse_of(points, labels, centroids):
     """Sum of squared distances from each point to its assigned centroid."""
-    raise NotImplementedError("sse")
+    if len(points) != len(labels):
+        raise ValueError("each point needs one label")
+    if any(not isinstance(label, int) or not 0 <= label < len(centroids)
+           for label in labels):
+        raise ValueError("labels must be valid centroid indices")
+    return sum(_squared_distance(point, centroids[label])
+               for point, label in zip(points, labels))
 
 
 # ------------------------------------------------------------------- harness

@@ -1,0 +1,11 @@
+test_duplicate_centroids_and_empty_clusters (__main__.BoundsTests.test_duplicate_centroids_and_empty_clusters) ... ok
+test_exact_and_near_ties (__main__.BoundsTests.test_exact_and_near_ties) ... ok
+test_randomized_and_truncated_runs (__main__.BoundsTests.test_randomized_and_truncated_runs) ... ok
+test_reuse_resets_diagnostics (__main__.BoundsTests.test_reuse_resets_diagnostics) ... ok
+test_scaled_coordinates (__main__.BoundsTests.test_scaled_coordinates) ... ok
+test_single_cluster_and_empty_points (__main__.BoundsTests.test_single_cluster_and_empty_points) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.144s
+
+OK

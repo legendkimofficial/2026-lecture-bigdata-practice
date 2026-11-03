@@ -1,0 +1,347 @@
+{
+  "machine": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+    "python": "3.13.15"
+  },
+  "dataset": {
+    "seed": 246,
+    "points": 20000,
+    "dimensions": 20,
+    "clusters": 12
+  },
+  "timing_note": "Separate diagnostics run; official timings are in bench.txt.",
+  "baseline": {
+    "distance_calls": 10320000,
+    "sse": 10737882.944550687,
+    "iterations": 43,
+    "seconds": 17.437210099999902
+  },
+  "yours": {
+    "distance_calls": 1150986,
+    "sse": 10737882.944550687,
+    "iterations": 43,
+    "seconds": 2.8865458000000217
+  },
+  "labels_identical": true,
+  "centroids_identical": true,
+  "sse_difference": 0.0,
+  "distance_cut": 0.8884703488372093,
+  "distance_counts": {
+    "initial_assignment": 240000,
+    "refresh": 115908,
+    "rescan": 791802,
+    "centroid_pairs": 2772,
+    "centroid_moves": 504
+  },
+  "pruning_counts": {
+    "lower_bound": 481499,
+    "half_separation": 286519
+  },
+  "first_assignment_fraction": 0.20851687162137506,
+  "first_iteration_fraction": 0.20852729746495613,
+  "extra_point_bound_numbers": 40000,
+  "iteration_stats": [
+    {
+      "iteration": 1,
+      "distance_calls": 240012,
+      "points_pruned": 0,
+      "own_distances_refreshed": 0,
+      "full_scans": 20000
+    },
+    {
+      "iteration": 2,
+      "distance_calls": 201011,
+      "points_pruned": 3400,
+      "own_distances_refreshed": 18333,
+      "full_scans": 16600
+    },
+    {
+      "iteration": 3,
+      "distance_calls": 162354,
+      "points_pruned": 6983,
+      "own_distances_refreshed": 19089,
+      "full_scans": 13017
+    },
+    {
+      "iteration": 4,
+      "distance_calls": 41993,
+      "points_pruned": 16563,
+      "own_distances_refreshed": 4108,
+      "full_scans": 3437
+    },
+    {
+      "iteration": 5,
+      "distance_calls": 44330,
+      "points_pruned": 16401,
+      "own_distances_refreshed": 4663,
+      "full_scans": 3599
+    },
+    {
+      "iteration": 6,
+      "distance_calls": 37657,
+      "points_pruned": 16929,
+      "own_distances_refreshed": 3798,
+      "full_scans": 3071
+    },
+    {
+      "iteration": 7,
+      "distance_calls": 28650,
+      "points_pruned": 17699,
+      "own_distances_refreshed": 3261,
+      "full_scans": 2301
+    },
+    {
+      "iteration": 8,
+      "distance_calls": 27952,
+      "points_pruned": 17810,
+      "own_distances_refreshed": 3784,
+      "full_scans": 2190
+    },
+    {
+      "iteration": 9,
+      "distance_calls": 28228,
+      "points_pruned": 17770,
+      "own_distances_refreshed": 3620,
+      "full_scans": 2230
+    },
+    {
+      "iteration": 10,
+      "distance_calls": 18199,
+      "points_pruned": 18607,
+      "own_distances_refreshed": 2798,
+      "full_scans": 1393
+    },
+    {
+      "iteration": 11,
+      "distance_calls": 20171,
+      "points_pruned": 18430,
+      "own_distances_refreshed": 2823,
+      "full_scans": 1570
+    },
+    {
+      "iteration": 12,
+      "distance_calls": 18464,
+      "points_pruned": 18579,
+      "own_distances_refreshed": 2755,
+      "full_scans": 1421
+    },
+    {
+      "iteration": 13,
+      "distance_calls": 14696,
+      "points_pruned": 18882,
+      "own_distances_refreshed": 2320,
+      "full_scans": 1118
+    },
+    {
+      "iteration": 14,
+      "distance_calls": 17280,
+      "points_pruned": 18682,
+      "own_distances_refreshed": 2704,
+      "full_scans": 1318
+    },
+    {
+      "iteration": 15,
+      "distance_calls": 13412,
+      "points_pruned": 18999,
+      "own_distances_refreshed": 2323,
+      "full_scans": 1001
+    },
+    {
+      "iteration": 16,
+      "distance_calls": 12272,
+      "points_pruned": 19069,
+      "own_distances_refreshed": 1953,
+      "full_scans": 931
+    },
+    {
+      "iteration": 17,
+      "distance_calls": 11944,
+      "points_pruned": 19100,
+      "own_distances_refreshed": 1966,
+      "full_scans": 900
+    },
+    {
+      "iteration": 18,
+      "distance_calls": 14199,
+      "points_pruned": 18913,
+      "own_distances_refreshed": 2164,
+      "full_scans": 1087
+    },
+    {
+      "iteration": 19,
+      "distance_calls": 10883,
+      "points_pruned": 19196,
+      "own_distances_refreshed": 1961,
+      "full_scans": 804
+    },
+    {
+      "iteration": 20,
+      "distance_calls": 13123,
+      "points_pruned": 19016,
+      "own_distances_refreshed": 2221,
+      "full_scans": 984
+    },
+    {
+      "iteration": 21,
+      "distance_calls": 12398,
+      "points_pruned": 19076,
+      "own_distances_refreshed": 2156,
+      "full_scans": 924
+    },
+    {
+      "iteration": 22,
+      "distance_calls": 12368,
+      "points_pruned": 19069,
+      "own_distances_refreshed": 2049,
+      "full_scans": 931
+    },
+    {
+      "iteration": 23,
+      "distance_calls": 11888,
+      "points_pruned": 19109,
+      "own_distances_refreshed": 2009,
+      "full_scans": 891
+    },
+    {
+      "iteration": 24,
+      "distance_calls": 10694,
+      "points_pruned": 19188,
+      "own_distances_refreshed": 1684,
+      "full_scans": 812
+    },
+    {
+      "iteration": 25,
+      "distance_calls": 8878,
+      "points_pruned": 19343,
+      "own_distances_refreshed": 1573,
+      "full_scans": 657
+    },
+    {
+      "iteration": 26,
+      "distance_calls": 7544,
+      "points_pruned": 19443,
+      "own_distances_refreshed": 1339,
+      "full_scans": 557
+    },
+    {
+      "iteration": 27,
+      "distance_calls": 7382,
+      "points_pruned": 19447,
+      "own_distances_refreshed": 1221,
+      "full_scans": 553
+    },
+    {
+      "iteration": 28,
+      "distance_calls": 9226,
+      "points_pruned": 19304,
+      "own_distances_refreshed": 1492,
+      "full_scans": 696
+    },
+    {
+      "iteration": 29,
+      "distance_calls": 5669,
+      "points_pruned": 19583,
+      "own_distances_refreshed": 1004,
+      "full_scans": 417
+    },
+    {
+      "iteration": 30,
+      "distance_calls": 6643,
+      "points_pruned": 19504,
+      "own_distances_refreshed": 1109,
+      "full_scans": 496
+    },
+    {
+      "iteration": 31,
+      "distance_calls": 7927,
+      "points_pruned": 19408,
+      "own_distances_refreshed": 1337,
+      "full_scans": 592
+    },
+    {
+      "iteration": 32,
+      "distance_calls": 7188,
+      "points_pruned": 19470,
+      "own_distances_refreshed": 1280,
+      "full_scans": 530
+    },
+    {
+      "iteration": 33,
+      "distance_calls": 8527,
+      "points_pruned": 19358,
+      "own_distances_refreshed": 1387,
+      "full_scans": 642
+    },
+    {
+      "iteration": 34,
+      "distance_calls": 6935,
+      "points_pruned": 19485,
+      "own_distances_refreshed": 1192,
+      "full_scans": 515
+    },
+    {
+      "iteration": 35,
+      "distance_calls": 8486,
+      "points_pruned": 19359,
+      "own_distances_refreshed": 1357,
+      "full_scans": 641
+    },
+    {
+      "iteration": 36,
+      "distance_calls": 7304,
+      "points_pruned": 19450,
+      "own_distances_refreshed": 1176,
+      "full_scans": 550
+    },
+    {
+      "iteration": 37,
+      "distance_calls": 7117,
+      "points_pruned": 19462,
+      "own_distances_refreshed": 1121,
+      "full_scans": 538
+    },
+    {
+      "iteration": 38,
+      "distance_calls": 3884,
+      "points_pruned": 19723,
+      "own_distances_refreshed": 759,
+      "full_scans": 277
+    },
+    {
+      "iteration": 39,
+      "distance_calls": 5987,
+      "points_pruned": 19561,
+      "own_distances_refreshed": 1080,
+      "full_scans": 439
+    },
+    {
+      "iteration": 40,
+      "distance_calls": 8274,
+      "points_pruned": 19376,
+      "own_distances_refreshed": 1332,
+      "full_scans": 624
+    },
+    {
+      "iteration": 41,
+      "distance_calls": 5048,
+      "points_pruned": 19620,
+      "own_distances_refreshed": 790,
+      "full_scans": 380
+    },
+    {
+      "iteration": 42,
+      "distance_calls": 2171,
+      "points_pruned": 19846,
+      "own_distances_refreshed": 399,
+      "full_scans": 154
+    },
+    {
+      "iteration": 43,
+      "distance_calls": 2618,
+      "points_pruned": 19806,
+      "own_distances_refreshed": 418,
+      "full_scans": 194
+    }
+  ]
+}

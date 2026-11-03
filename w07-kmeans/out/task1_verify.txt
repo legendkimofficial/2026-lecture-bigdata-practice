@@ -1,0 +1,9 @@
+  ok    distance in 2d                                     
+  ok    distance in 5d                                     
+  ok    three clusters of three                            [3, 3, 3]
+  ok    the three blobs were recovered                     
+  ok    sse is small when clusters are right               sse 0.1200
+  ok    random init sometimes lands badly                  sse from 0.120 to 96.105
+  ok    k-means++ is more reliable than random             mean sse: ++ 0.120 vs random 31.313
+
+  all ok

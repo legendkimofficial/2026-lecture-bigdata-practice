@@ -57,31 +57,121 @@ def _means(points, labels, k, previous):
 
 
 class YourKMeans:
-    """Your k-means.
+    """Exact Lloyd iterations with Hamerly's two bounds per point.
 
-        __init__(k, max_iter=50)
-        run(points, initial_centroids, distance) -> (labels, centroids)
+    ``upper[i]`` bounds the distance to the assigned centroid from above;
+    ``lower[i]`` bounds every other centroid distance from below. Moving the
+    assigned centroid by m increases upper by at most m, and moving any
+    centroid by at most M decreases lower by at most M (triangle inequality).
+    Half the distance to the nearest other centroid gives another safe test:
+    if upper < half_separation, no other centroid can be nearer.
 
-    Same starting centroids, same `distance` function - which is counted. That
-    counter is your score.
-
-    The idea, from §7.3 and the triangle inequality:
-
-        if a point is much closer to its current centroid than that centroid
-        moved, and than any other centroid could have come, then it cannot have
-        changed cluster, and you do not have to measure anything
-
-    Keeping enough bookkeeping to make that test cheap, without keeping so much
-    that the bookkeeping costs more than the distances, is the task.
-
-    You may call `distance` on two centroids, and those calls are counted too -
-    which is the correct accounting, since that is real work. There are k of
-    them and n points, and k is much smaller than n. That asymmetry is the
-    whole opening.
+    A strict numerical margin makes uncertain cases use a full ordered scan,
+    including ties within the baseline's 1e-12 comparison tolerance. The scan
+    and centroid update preserve the baseline's order, so the answer is exact.
+    Only two additional numbers per point are retained, plus O(k) bounds.
+    Every actual distance, including centroid bookkeeping, uses the callback.
     """
 
+    TIE_TOLERANCE = 1e-12
+
     def __init__(self, k, max_iter=50):
-        raise NotImplementedError("write your k-means")
+        if k < 1 or max_iter < 1:
+            raise ValueError("k and max_iter must be positive")
+        self.k, self.max_iter = k, max_iter
 
     def run(self, points, initial_centroids, distance):
-        raise NotImplementedError
+        if len(initial_centroids) != self.k:
+            raise ValueError("initial_centroids must contain exactly k points")
+        centroids = list(initial_centroids)
+        labels = [None] * len(points)
+        upper = [float("inf")] * len(points)
+        lower = [0.0] * len(points)
+        self.distance_counts = {
+            "initial_assignment": 0, "refresh": 0, "rescan": 0,
+            "centroid_pairs": 0, "centroid_moves": 0,
+        }
+        self.pruning_counts = {"lower_bound": 0, "half_separation": 0}
+        self.iteration_stats = []
+
+        def safely_below(u, bound):
+            # Leave a conservative floating-point margin. In a borderline case
+            # the full scan, rather than a bound, decides the ordered winner.
+            if bound == float("inf"):
+                return u < bound
+            margin = 1e-10 * max(1.0, abs(u), abs(bound))
+            return u + self.TIE_TOLERANCE + margin < bound
+
+        for self.iterations in range(1, self.max_iter + 1):
+            calls_before = sum(self.distance_counts.values())
+            pruned, refreshed, scanned, changed = 0, 0, 0, False
+            separation = [float("inf")] * self.k
+            if self.iterations > 1:
+                for a in range(self.k):
+                    for b in range(a + 1, self.k):
+                        half = distance(centroids[a], centroids[b]) / 2
+                        self.distance_counts["centroid_pairs"] += 1
+                        separation[a] = min(separation[a], half)
+                        separation[b] = min(separation[b], half)
+
+            for i, point in enumerate(points):
+                previous = labels[i]
+                own_distance = None
+                if previous is not None:
+                    threshold = max(lower[i], separation[previous])
+                    if not safely_below(upper[i], threshold):
+                        own_distance = distance(point, centroids[previous])
+                        self.distance_counts["refresh"] += 1
+                        refreshed += 1
+                        upper[i] = own_distance
+                    if safely_below(upper[i], threshold):
+                        pruned += 1
+                        reason = ("lower_bound" if lower[i] >= separation[previous]
+                                  else "half_separation")
+                        self.pruning_counts[reason] += 1
+                        continue
+
+                # Reproduce the baseline's left-to-right, tolerance-aware scan.
+                # A retained winner need not be the strict minimum within 1e-12,
+                # so lower is computed over *all other* centroids afterwards.
+                distances = []
+                best, winner = None, 0
+                for j, centroid in enumerate(centroids):
+                    if j == previous and own_distance is not None:
+                        d = own_distance
+                    else:
+                        d = distance(point, centroid)
+                        category = ("initial_assignment" if previous is None
+                                    else "rescan")
+                        self.distance_counts[category] += 1
+                    distances.append(d)
+                    if best is None or d < best - self.TIE_TOLERANCE:
+                        best, winner = d, j
+                scanned += 1
+                upper[i] = distances[winner]
+                lower[i] = min((d for j, d in enumerate(distances) if j != winner),
+                               default=float("inf"))
+                if previous != winner:
+                    labels[i] = winner
+                    changed = True
+
+            updated = _means(points, labels, self.k, centroids)
+            if changed and self.iterations < self.max_iter:
+                movement = [distance(old, new)
+                            for old, new in zip(centroids, updated)]
+                self.distance_counts["centroid_moves"] += self.k
+                largest_move = max(movement)
+                for i, label in enumerate(labels):
+                    upper[i] += movement[label]
+                    lower[i] = max(0.0, lower[i] - largest_move)
+            centroids = updated
+            self.iteration_stats.append({
+                "iteration": self.iterations,
+                "distance_calls": sum(self.distance_counts.values()) - calls_before,
+                "points_pruned": pruned,
+                "own_distances_refreshed": refreshed,
+                "full_scans": scanned,
+            })
+            if not changed:
+                break
+        return labels, centroids
